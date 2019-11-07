@@ -49,8 +49,7 @@ def main():
     now = datetime.now()
     object_name = now.strftime("%d/%m/%Y %H:%M:%S") +" output.txt"
     file_name = 'output1.txt'
-    #file_name = 'output1.txt'
-    #object_name = 'output1.txt'
+   
 
     # Set up logging
     logging.basicConfig(level=logging.DEBUG,

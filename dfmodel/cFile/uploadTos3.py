@@ -45,7 +45,7 @@ def main():
     now = datetime.now()
     # Set these values before running the program
     bucket_name = 'dardendifferntialmodeloutput'
-    file_name = now.strftime("%d/%m/%Y %H:%M:%S") +"output.txt"
+    file_name = now.strftime("%d/%m/%Y %H:%M:%S") +" output.txt"
     object_name = 'output1.txt'
 
     # Set up logging
