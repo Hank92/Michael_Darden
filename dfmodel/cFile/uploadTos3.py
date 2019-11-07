@@ -14,7 +14,7 @@
 import logging
 import boto3
 from botocore.exceptions import ClientError
-
+from datetime import datetime
 
 def upload_file(file_name, bucket, object_name=None):
     """Upload a file to an S3 bucket
@@ -42,10 +42,10 @@ def upload_file(file_name, bucket, object_name=None):
 
 def main():
     """Exercise upload_file()"""
-
+    now = datetime.now()
     # Set these values before running the program
     bucket_name = 'dardendifferntialmodeloutput'
-    file_name = 'output1.txt'
+    file_name = now.strftime("%d/%m/%Y %H:%M:%S") +"output.txt"
     object_name = 'output1.txt'
 
     # Set up logging

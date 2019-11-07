@@ -7,8 +7,8 @@ import boto3
 from botocore.exceptions import ClientError
 
 def process():
-    if not os.path.exists('foo'):
-        subprocess.call(["gcc", "foo.c", "-ofoo", "-lm"])
+    #if not os.path.exists('foo'):
+    subprocess.call(["gcc", "foo.c", "-ofoo", "-lm"])
 
 def dfModel(*args):
 	process()

@@ -1,17 +1,17 @@
 import sys
 import subprocess
 import os
+import boto3
+import io
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .cFile.differentialModel import *
-
 from dfmodel.forms import HomeForm
 
 # Create your views here.
 class Home(TemplateView):
     def get(self, request):
-        #temp = dfModel()
         form = HomeForm()
         return render(request, 'index.html', {'form': form})
     def post(self, request):
@@ -25,8 +25,28 @@ class Home(TemplateView):
         return render(request, temp, args)
 
 class Display(TemplateView):
-    def get(self, request, **kwargs):
-        return render(request, 'display.html', context=None)
-
+    def get(self, request):
+        s3 = boto3.resource('s3')
+        bucket = s3.Bucket('dardendifferentialmodeloutput')
+        file = []
+        for obj in bucket.objects.all():
+            key = obj.key
+            body = obj.get()['Body']._raw_stream.readlines()
+            temp = []
+            temp.append(key)
+            temp.append(body[0].decode("utf-8"))
+            temp.append(body[1].decode("utf-8"))
+            temp.append(body[2].decode("utf-8"))
+            temp.append(body[3].decode("utf-8"))
+            file.append(temp)
+        result = {'output': file}
+        return render(request, 'display.html', result)
+    def post(self, request):
+        #s3 = boto3.client('s3')
+        #s3.download_file('dardendifferentialmodeloutput', request.POST["file"], "very Lovely")
+        #print(request.POST["file"])
+        success = "Your file has been downloaded!"
+        args = {'success':success}
+        return render(request, 'display.html', args)
 
 

@@ -25,7 +25,21 @@
     <div class="col-md-8 offset-md-2">
     </br>
         <h1>Results</h1>
-        
+        <hr>
+        <ul>
+          <form method="post">
+            {% csrf_token %}
+
+            {% for file in output %}
+            <input type="submit" name="Download" value="Download" />
+            <hr>
+                {% for f in file %} 
+                {{ f }} </br>
+                {% endfor %}
+            {% endfor %}
+          </form>
+        </ul>
+        {{success}}
     </div>
 </div>
 

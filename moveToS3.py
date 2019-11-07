@@ -14,6 +14,7 @@
 import logging
 import boto3
 from botocore.exceptions import ClientError
+from datetime import datetime
 
 
 def upload_file(file_name, bucket, object_name=None):
@@ -45,8 +46,11 @@ def main():
 
     # Set these values before running the program
     bucket_name = 'dardendifferentialmodeloutput'
+    now = datetime.now()
+    object_name = now.strftime("%d/%m/%Y %H:%M:%S") +" output.txt"
     file_name = 'output1.txt'
-    object_name = 'output1.txt'
+    #file_name = 'output1.txt'
+    #object_name = 'output1.txt'
 
     # Set up logging
     logging.basicConfig(level=logging.DEBUG,
